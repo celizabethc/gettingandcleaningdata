@@ -2,7 +2,7 @@ Variable Descriptions:
 
 RESULTS:
 
-Column 1 (String):
+Part 1:
 
 Activity: Activity type while measuring response
 
@@ -12,6 +12,8 @@ Activity: Activity type while measuring response
 4 SITTING
 5 STANDING
 6 LAYING
+
+Measurements:
 
 Column 2 (String): 
 
