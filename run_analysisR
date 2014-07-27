@@ -1,13 +1,21 @@
+##Final Course Assignment for Getting & Cleaning Data
+##Goal is to merge testing & training data sets, isolate mean/standard deviation variables, calculate averages based off activity & participant
+
 filelocation<-"/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/"
 
+##read in column lables
 features<-(read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/features.txt"))
 features<-unlist(features[,2])
 
+##features with mean in them
 mean<-c(1, 2,3,41,42,43,81,82,83,121,122,123,161,162,163,201,214,227,240,253,266,267,268,294,295,296,245,346,347,373,374,375,
         424,425,426,452,524,503,513,516,526,529,539,542,552,555,556,557,558,559,560,561)
 
+##features with sd in them
 std<-c(4,5,6,44,45,46,84,85,86,124,125,126,164,165,166,202,215,228,241,254,269,270, 271,348,349, 350,427,428,429,504,517,530,543)
 
+
+##read in test set & test lables
 x_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/X_test.txt")
 y_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/y_test.txt")
 test<-data.frame(x_test,y_test)
@@ -20,7 +28,7 @@ colnames(test)[length(features)+1]<-"lable"
 subject_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/subject_test.txt")
 test2<-data.frame(train,subject_test)
 
-
+##read in train set & train lables
 x_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/X_train.txt")
 y_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/y_train.txt")
 train<-data.frame(x_train,y_train)
@@ -32,4 +40,24 @@ subject_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/U
 
 train2<-data.frame(train,subject_train)
 
+##bind test & train together
 total<-rbind(test2,train2)
+
+subject_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/subject_train.txt")
+
+##subset aggregated set by only variables with mean & standard deviation
+
+total2<- total[c(mean,std,562)]
+last<-length(total2[,1])
+
+lable<-total2[,last]
+
+summaryBy(total2[1:85] ~ lable, data=total2, FUN=mean)
+
+vars<-colnames(total2)
+
+##calculate mean by lable
+aggregate(total2[,1:85],by=list(total$lable), mean)
+
+
+
