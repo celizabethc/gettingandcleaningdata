@@ -1,11 +1,58 @@
+Experiment Description:
+
+Experiment utilized 30 volunteers between the ages of 19-48 and included 6 unique activities. six activities.
+Each participant was wearing a smartphone aroundt their waist with a embedded accelerometer and gyroscope.
+The measurements included 3-axial linear acceleration and 3-axial angular velocity at a constand rate.
+
+The data was randomly partitioned to have the test set including 30% of participants and the training set incuding 70% of the participants
+
+(Information taken from features_info.txt)
+
+
 Variable Descriptions:
 
-RESULTS:
+Values (features_info.txt):
 
-Part 1:
+Signals: (3 axial directions)
+tBodyAcc-XYZ
+tGravityAcc-XYZ
+tBodyAccJerk-XYZ
+tBodyGyro-XYZ
+tBodyGyroJerk-XYZ
+tBodyAccMag
+tGravityAccMag
+tBodyAccJerkMag
+tBodyGyroMag
+tBodyGyroJerkMag
+fBodyAcc-XYZ
+fBodyAccJerk-XYZ
+fBodyGyro-XYZ
+fBodyAccMag
+fBodyAccJerkMag
+fBodyGyroMag
+fBodyGyroJerkMag
 
-Activity: Activity type while measuring response
+Measurement:
+mean(): Mean value
+std(): Standard deviation
+mad(): Median absolute deviation 
+max(): Largest value in array
+min(): Smallest value in array
+sma(): Signal magnitude area
+energy(): Energy measure. Sum of the squares divided by the number of values. 
+iqr(): Interquartile range 
+entropy(): Signal entropy
+arCoeff(): Autorregresion coefficients with Burg order equal to 4
+correlation(): correlation coefficient between two signals
+maxInds(): index of the frequency component with largest magnitude
+meanFreq(): Weighted average of the frequency components to obtain a mean frequency
+skewness(): skewness of the frequency domain signal 
+kurtosis(): kurtosis of the frequency domain signal 
+bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
+angle(): Angle between to vectors.
 
+
+Activity (while taken measurement):
 1 WALKING
 2 WALKING_UPSTAIRS
 3 WALKING_DOWNSTAIRS
@@ -13,22 +60,18 @@ Activity: Activity type while measuring response
 5 STANDING
 6 LAYING
 
-Measurements:
-
-Column 2 (String): 
-
-Measurements: Specific measures as named
 
 
-Column 3 (Numeric):
-
-Subject: number of the subject who participated in the activity
+Subject (number of the subject who participated in the activity):
 
 Range: 1 - 30
 
-Column 4 (Numeric):
+Analysis:
+Aggregated testing values with subject and activity data.  Aggregated training values with resptive subject and activity data.
+Combined new testing set with new training set.
+Created new data set only including measurements of mean or standard deviation.
+Calculated the mean by subject and activity.
 
-Mean: Average for the specific measurement (mean or std by activity/measurement)
 
 
 
