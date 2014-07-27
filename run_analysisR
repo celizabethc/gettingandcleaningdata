@@ -1,63 +1,97 @@
-##Final Course Assignment for Getting & Cleaning Data
-##Goal is to merge testing & training data sets, isolate mean/standard deviation variables, calculate averages based off activity & participant
 
+##Getting and Cleaning Data (Coursera)
+##Class Project
+##Goal is to merge a testing and training set of data, select variables with mean/std, calculate average for each activity and subject
+
+##local location of file
 filelocation<-"/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/"
 
-##read in column lables
 features<-(read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/features.txt"))
 features<-unlist(features[,2])
 
-##features with mean in them
-mean<-c(1, 2,3,41,42,43,81,82,83,121,122,123,161,162,163,201,214,227,240,253,266,267,268,294,295,296,245,346,347,373,374,375,
-        424,425,426,452,524,503,513,516,526,529,539,542,552,555,556,557,558,559,560,561)
 
-##features with sd in them
-std<-c(4,5,6,44,45,46,84,85,86,124,125,126,164,165,166,202,215,228,241,254,269,270, 271,348,349, 350,427,428,429,504,517,530,543)
+##columns with mean in header
 
+x1<-grep(mean,features)
+x2<-grep(mean,features)
 
-##read in test set & test lables
+mean<-c(x1,x2)
+
+##columns with std in header
+
+y1<-grep(std,features)
+y2<-grep(STD,features)
+y3<-grep(sd,features)
+y4<-grep(SD,features)
+
+std<-c(y1,y2,y3,y4)
+
 x_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/X_test.txt")
 y_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/y_test.txt")
+
 test<-data.frame(x_test,y_test)
 
-for(i in 1:length(features)){
-colnames(test)[i]<-paste(features[i])
-}
-colnames(test)[length(features)+1]<-"lable"
-
 subject_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/subject_test.txt")
-test2<-data.frame(train,subject_test)
 
-##read in train set & train lables
+test2<-data.frame(test,subject_test)
+
+
+##rename column names for test set based off of features file
+
+for(i in 1:length(features)){
+  colnames(test2)[i]<-paste(features[i])
+}
+
+colnames(test2)[length(features)+1]<-"lable"
+colnames(test2)[length(features)+2]<-"subject"
+
+##Read in training data set and lables
+
 x_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/X_train.txt")
 y_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/y_train.txt")
+
+
+##combining training set plus lables
 train<-data.frame(x_train,y_train)
-for(i in 1:length(features2)){
-  colnames(train)[i]<-paste(features2[i])
-}
 
 subject_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/subject_train.txt")
 
 train2<-data.frame(train,subject_train)
 
-##bind test & train together
+##rename column names for train set based off of features files
+
+for(i in 1:length(features)){
+  colnames(train2)[i]<-paste(features[i])
+}
+colnames(train2)[length(features)+1]<-"subject"
+colnames(train2)[length(features)+2]<-"activity"
+
+
 total<-rbind(test2,train2)
 
-subject_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/subject_train.txt")
+##subsetting variables including mean or std
+total2<- total[c(mean,std,562,563)]
+last<-length(total2[1,])
 
-##subset aggregated set by only variables with mean & standard deviation
-
-total2<- total[c(mean,std,562)]
-last<-length(total2[,1])
-
-lable<-total2[,last]
-
-summaryBy(total2[1:85] ~ lable, data=total2, FUN=mean)
+subject<-total2[,last-1]
+activity<-total2[,last]
 
 vars<-colnames(total2)
 
-##calculate mean by lable
-aggregate(total2[,1:85],by=list(total$lable), mean)
 
+##renaming activities
+total2$activity[total2$activity == "1"] <- "Walking"
+total2$activity[total2$activity == "2"] <- "Walking_Upstairs"
+total2$activity[total2$activity == "3"] <- "Walking_Downstairs"
+total2$activity[total2$activity == "4"] <- "Sitting"
+total2$activity[total2$activity == "5"] <- "Standing"
+total2$activity[total2$activity == "6"] <- "Laying"
+
+activity.data<-aggregate(total2[,1:85],by=list(total2$activity), mean)
+subject.data<-aggregate(total2[,1:85],by=list(total2$subject), mean)
+
+write.table(activity.data, "/Users/Documents/activity.txt", sep="\t")
+
+write.table(subject.data, "/Users/Documents/subject.txt",sep="\t")
 
 
