@@ -1,8 +1,33 @@
-
-DATA MANAGEMENT:
+Variable Descriptions:
 
 RESULTS:
-Column 1: 
-Column 2:
-Column 3:
+
+Column 1 (String):
+
+Activity: Activity type while measuring response
+
+1 WALKING
+2 WALKING_UPSTAIRS
+3 WALKING_DOWNSTAIRS
+4 SITTING
+5 STANDING
+6 LAYING
+
+Column 2 (String): 
+
+Measurements: Specific measures as named
+
+
+Column 3 (Numeric):
+
+Subject: number of the subject who participated in the activity
+
+Range: 1 - 30
+
+Column 4 (Numeric):
+
+Mean: Average for the specific measurement (mean or std by activity/measurement)
+
+
+
 
