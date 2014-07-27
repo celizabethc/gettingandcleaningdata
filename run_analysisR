@@ -1,0 +1,35 @@
+filelocation<-"/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/"
+
+features<-(read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/features.txt"))
+features<-unlist(features[,2])
+
+mean<-c(1, 2,3,41,42,43,81,82,83,121,122,123,161,162,163,201,214,227,240,253,266,267,268,294,295,296,245,346,347,373,374,375,
+        424,425,426,452,524,503,513,516,526,529,539,542,552,555,556,557,558,559,560,561)
+
+std<-c(4,5,6,44,45,46,84,85,86,124,125,126,164,165,166,202,215,228,241,254,269,270, 271,348,349, 350,427,428,429,504,517,530,543)
+
+x_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/X_test.txt")
+y_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/y_test.txt")
+test<-data.frame(x_test,y_test)
+
+for(i in 1:length(features)){
+colnames(test)[i]<-paste(features[i])
+}
+colnames(test)[length(features)+1]<-"lable"
+
+subject_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/subject_test.txt")
+test2<-data.frame(train,subject_test)
+
+
+x_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/X_train.txt")
+y_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/y_train.txt")
+train<-data.frame(x_train,y_train)
+for(i in 1:length(features2)){
+  colnames(train)[i]<-paste(features2[i])
+}
+
+subject_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/subject_train.txt")
+
+train2<-data.frame(train,subject_train)
+
+total<-rbind(test2,train2)
