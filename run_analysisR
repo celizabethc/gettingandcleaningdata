@@ -4,9 +4,9 @@
 ##Goal is to merge a testing and training set of data, select variables with mean/std, calculate average for each activity and subject
 
 ##local location of file
-filelocation<-"/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/"
+filelocation<-"/UCI HAR Dataset/"
 
-features<-(read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/features.txt"))
+features<-(read.table("/UCI HAR Dataset/features.txt"))
 features<-unlist(features[,2])
 
 
@@ -26,12 +26,12 @@ y4<-grep(SD,features)
 
 std<-c(y1,y2,y3,y4)
 
-x_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/X_test.txt")
-y_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/y_test.txt")
+x_test<-read.table("/UCI HAR Dataset/test/X_test.txt")
+y_test<-read.table("/UCI HAR Dataset/test/y_test.txt")
 
 test<-data.frame(x_test,y_test)
 
-subject_test<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/test/subject_test.txt")
+subject_test<-read.table("/UCI HAR Dataset/test/subject_test.txt")
 
 test2<-data.frame(test,subject_test)
 
@@ -47,14 +47,14 @@ colnames(test2)[length(features)+2]<-"subject"
 
 ##Read in training data set and lables
 
-x_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/X_train.txt")
-y_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/y_train.txt")
+x_train<-read.table("/UCI HAR Dataset/train/X_train.txt")
+y_train<-read.table("/UCI HAR Dataset/train/y_train.txt")
 
 
 ##combining training set plus lables
 train<-data.frame(x_train,y_train)
 
-subject_train<-read.table("/Users/cynthiacozzetto/rProgAssignment2/cachematrix/UCI HAR Dataset/train/subject_train.txt")
+subject_train<-read.table("/UCI HAR Dataset/train/subject_train.txt")
 
 train2<-data.frame(train,subject_train)
 
